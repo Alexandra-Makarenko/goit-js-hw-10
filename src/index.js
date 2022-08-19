@@ -23,12 +23,12 @@ function onSearch(e) {
     console.log(newsApiService.query);
 
     if (newsApiService.query === '') {
+        clearArticlesContainer()
         return
     };
-
-  clearArticlesContainer();
-  fetchArticles();
     
+  clearArticlesContainer();
+  fetchArticles();    
 }
 
 function fetchArticles() {
@@ -43,10 +43,7 @@ function appendArticlesMarkup(names) {
      } else if(names.length >=2 && names.length <=10){
             const markup = names
     .map((name) => {
-      return `<li>
-          <p><b>Official name</b>: ${name.name.official}</p>
-          <img src=${name.flags.svg}>
-        </li>`;
+      return `<li><img src=${name.flags.svg}><span class = 'title'>${name.name.common}</span></li>`;
     })
     .join("");
     
@@ -54,12 +51,10 @@ function appendArticlesMarkup(names) {
      } else {
            const markup = names
     .map((name) => {
-      return `<li>
-          <p><b>Official name</b>: ${name.name.official}</p>
-          <p><b>Official name</b>: ${name.capital}</p>
-          <p><b>Official name</b>: ${name.population}</p>
-          <img src=${name.flags.svg}>
-        </li>`;
+      return `<li><img src=${name.flags.svg}><span class='title'>${name.name.official}</span></li>
+          <li><b>Capital</b>: ${name.capital}</li>
+          <li><b>Population</b>: ${name.population}</li>
+          <li><b>Languages</b>: ${Object.values(name.languages).join(', ')}</li>`;
     })
     .join("");
     
